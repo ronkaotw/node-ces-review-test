@@ -21,7 +21,7 @@ git clone https://github.com/ronkaotw/node-ces-review-test.git
 ```
 
 ```
-cd node-ces-review-test-main
+cd node-ces-review-test
 ```
 
 ```
