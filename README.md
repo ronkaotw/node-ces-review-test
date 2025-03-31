@@ -21,7 +21,7 @@ git clone https://github.com/ronkaotw/node-ces-review-test.git
 ```
 
 ```
-cd node-ces-review-test
+cd node-ces-review-test-main
 ```
 
 ```
@@ -29,5 +29,5 @@ npm install
 ```
 
 ```
-nodemon server.js
+npm run start
 ```
