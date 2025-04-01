@@ -30,7 +30,4 @@ const reviewSchema = new Schema({
 // 建立模型
 const ReviewModel = mongoose.model("Review", reviewSchema);
 
-// 將模型與方法關聯
-Object.setPrototypeOf(ReviewModel, Review);
-
 module.exports = ReviewModel;
