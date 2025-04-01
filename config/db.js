@@ -1,9 +1,17 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
-const uri = process.env.MONGO_URI;
+require("dotenv").config();
+const mongoose = require("mongoose");
+const mongoURI = process.env.MONGO_URI;
 
-const client = new MongoClient(uri, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// 與資料庫進行連線
+async function connectDB() {
+  try {
+    // 連接到 MongoDB
+    await mongoose.connect(mongoURI);
+    console.log("資料庫連線成功");
+  } catch (error) {
+    console.error("資料庫連線失敗", error);
+  }
+}
+connectDB();
 
-module.exports = { client };
+module.exports = { connectDB, mongoose };

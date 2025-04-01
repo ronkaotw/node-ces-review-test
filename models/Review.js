@@ -1,33 +1,15 @@
 const mongoose = require("mongoose");
-const { Schema, model } = mongoose;
 
-// 定義 Review Schema
-const reviewSchema = new Schema({
+const reviewSchema = new mongoose.Schema({
   consultantId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Consultant", // 顧問與該資料模型關聯
+    ref: "Consultant",
     required: true,
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User", // 使用者與該資料模型關聯
-    required: true,
-  },
-  rating: {
-    type: Number,
-    required: true,
-  },
-  comment: {
-    type: String,
-    required: true,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  comment: { type: String, required: true },
+  createdAt: { type: Date, default: Date.now },
 });
 
-// 建立模型
-const ReviewModel = mongoose.model("Review", reviewSchema);
-
-module.exports = ReviewModel;
+const Review = mongoose.model("Review", reviewSchema);
+module.exports = Review;
