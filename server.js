@@ -6,15 +6,11 @@ const app = express();
 const morgan = require("morgan");
 const PORT = process.env.PORT;
 
+// 引入 DB Config 文件
+const db = require("./config/db");
+
 // api引入
 const apiReview = require("./routes/Review.js");
-// db引入
-const db = require("./config/db.js");
-//morgan
-morgan.format("Aaron", "[Aaron] :method :url :status"),
-  morgan.token("from", function (req, res) {
-    return req.query.from || "-";
-  });
 
 // 與資料庫進行連線
 async function connDB() {
@@ -23,6 +19,7 @@ async function connDB() {
     console.log("資料庫已連結");
   } catch (error) {
     console.log("資料庫連結失敗:", error);
+    process.exit(1);
   }
 }
 connDB();
@@ -30,13 +27,20 @@ connDB();
 // 關閉資料庫連線
 async function closeDB() {
   try {
-    await client.close();
+    await db.client.close();
     console.log("資料庫連線已關閉");
   } catch (error) {
     console.error("無法關閉資料庫連線:", error);
+    process.exit(1);
   }
 }
-closeDB();
+closeDB;
+
+//morgan
+morgan.format("Aaron", "[Aaron] :method :url :status"),
+  morgan.token("from", function (req, res) {
+    return req.query.from || "-";
+  });
 
 // 中介軟體執行
 app.use(morgan("Aaron"));
