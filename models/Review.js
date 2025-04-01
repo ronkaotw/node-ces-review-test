@@ -15,8 +15,6 @@ const reviewSchema = new Schema({
   },
   rating: {
     type: Number,
-    min: 1,
-    max: 5,
     required: true,
   },
   comment: {
@@ -28,23 +26,6 @@ const reviewSchema = new Schema({
     default: Date.now,
   },
 });
-
-// 使用 ES6 class 來定義 Model
-class Review {
-  static async createReview(data) {
-    const review = new this(data);
-    await review.save();
-    return review;
-  }
-
-  static async getReviewsByConsultant(consultantId) {
-    return this.find({ consultantId }).exec();
-  }
-
-  static async deleteReviewById(id) {
-    return this.findByIdAndDelete(id).exec();
-  }
-}
 
 // 建立模型
 const ReviewModel = mongoose.model("Review", reviewSchema);
