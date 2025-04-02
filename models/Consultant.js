@@ -2,10 +2,6 @@ const mongoose = require("mongoose");
 
 const consultantSchema = new mongoose.Schema({
   consultantId: {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-    },
     type: mongoose.Schema.Types.ObjectId,
     required: true,
   },
