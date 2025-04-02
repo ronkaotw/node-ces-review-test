@@ -33,3 +33,41 @@ npm install
 ```
 npm run start or nodemon server.js
 ```
+
+## API 路徑
+
+### 測試路徑
+
+```
+POST　/api/review
+```
+
+### Input 資料
+
+```
+{
+  "userEmail": "testuser@example.com",
+  "consultantName": "John Doe",
+  "rating": 5,
+  "comment": "這是一個很棒的顧問"
+}
+```
+
+### 回傳資料
+
+```
+{
+    "status": 201,
+    "data": {
+        "rating": 5,
+        "comment": "這是一個很棒的顧問",
+        "_id": "67ecb5dd5240fd49ff8ce0dc",
+        "createdAt": "2025-04-02T03:58:21.869Z",
+        "__v": 0
+    }
+}
+```
+
+### 如果找不到使用者跟顧問資料，就會顯示錯誤代碼 404
+
+### 伺服器錯誤則會顯示 500，錯誤代碼
