@@ -62,9 +62,6 @@ router.post("/", async (req, res) => {
 
     // 創建一個新的 Review 並新增使用者和顧問姓名欄位
     const newReview = new Review({
-      userId: findUser.userId,
-      consultantId: consultant.consultantId,
-      consultantName: consultant.name,
       rating: createData.rating,
       comment: createData.comment,
     });
@@ -86,14 +83,57 @@ router.post("/", async (req, res) => {
   }
 });
 
-// 查詢 Review
-router.get("/consultantId", async (req, res) => {
-  return res.status(200).json({
-    status: 200,
-    data: {
-      Hello: "this is get api test",
-    },
-  });
+// 查詢多筆 Review
+router.get("/", async (req, res) => {
+  try {
+    const review = await Review.find();
+
+    // 如果找不到 review 資料，返回 404 。
+    if (!review) {
+      return res.status(404).json({
+        status: 404,
+        message: "操作失敗: 找不到該顧問的評價",
+      });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      data: review,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      status: 500,
+      error: "內部伺服器錯誤",
+    });
+  }
+});
+
+// 查詢單筆 Review
+router.get("/:_id", async (req, res) => {
+  try {
+    const review = await Review.findOne({
+      _id: req.params._id,
+    });
+
+    if (!review) {
+      return res.status(404).json({
+        status: 404,
+        message: "操作失敗: 找不到該顧問的評價",
+      });
+    }
+
+    return res.status(200).json({
+      status: 200,
+      data: review,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      status: 500,
+      error: "內部伺服器錯誤",
+    });
+  }
 });
 
 // 刪除 Review
