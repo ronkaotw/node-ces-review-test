@@ -54,8 +54,8 @@ router.post("/", async (req, res) => {
 
     // 檢查其他欄位是否正確
     if (!createData.rating || !createData.comment) {
-      return res.status(400).json({
-        status: 400,
+      return res.status(404).json({
+        status: 404,
         error: "操作失敗: 評分和評價不得為空",
       });
     }
