@@ -137,13 +137,38 @@ router.get("/:_id", async (req, res) => {
 });
 
 // 刪除 Review
-router.delete("/", async (req, res) => {
-  return res.status(200).json({
-    status: 200,
-    data: {
-      Hello: "this is delete api test",
-    },
-  });
+router.delete("/:_id", async (req, res) => {
+  try {
+    // 用ID找尋一筆顧問資料
+    const findDelete = await Review.findOne({
+      _id: req.params._id,
+    });
+
+    // 刪除一筆顧問資料
+    const review = await Review.deleteOne({
+      _id: req.params._id,
+    });
+
+    // 判斷該資料是不是已經被刪除
+    if (!findDelete || !review) {
+      return res.status(404).json({
+        status: 404,
+        message: "操作失敗: 找不到要刪除的顧問資料或是顧問資料已經刪除",
+      });
+    } else {
+      return res.status(200).json({
+        status: 200,
+        message: "操作成功: 顧問資料已成功刪除！",
+        data: review,
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      status: 500,
+      error: "內部伺服器錯誤",
+    });
+  }
 });
 
 module.exports = router;
